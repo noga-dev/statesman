@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:statesman/common.dart';
 
 class CountInheritedWidget extends InheritedWidget {
   CountInheritedWidget({Key? key, required this.counter, Widget? child})
@@ -28,16 +27,41 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar('Inherited Widget'),
+      appBar: AppBar(
+          automaticallyImplyLeading: true,
+          title: const Text('Inherited Widget')),
       body: CountInheritedWidget(
         counter: counter,
         child: const Center(
           child: CounterText(),
         ),
       ),
-      floatingActionButton: MyFabs(
-        incrementButton: () => setState(() => counter++),
-        decrementButton: () => setState(() => counter--),
+      floatingActionButton: Wrap(
+        children: [
+          if (ModalRoute.of(context)?.canPop ?? false)
+            const Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: FloatingActionButton(
+                onPressed: null,
+                child: BackButton(),
+              ),
+            ),
+          FloatingActionButton(
+            heroTag: UniqueKey(),
+            onPressed: () => setState(() => counter++),
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          FloatingActionButton(
+            heroTag: UniqueKey(),
+            onPressed: () => setState(() => counter--),
+            backgroundColor: Colors.deepOrange,
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }

@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  const MyApp();
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  int _counter = 0;
+  @override
+  void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
+    Get.put(CountController());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: true),
-      body: Center(child: Text('Counter = $_counter')),
+      body: Center(
+          child: GetBuilder<CountController>(
+              builder: (s) => Text('Get = ${s.count.toString()}'))),
       floatingActionButton: Wrap(
         children: [
           if (ModalRoute.of(context)?.canPop ?? false)
@@ -27,21 +33,33 @@ class _MyAppState extends State<MyApp> {
             ),
           FloatingActionButton(
             heroTag: UniqueKey(),
-            onPressed: () => setState(() => _counter++),
+            onPressed: () => Get.find<CountController>().increment(),
             backgroundColor: Colors.green,
             child: const Icon(Icons.add),
           ),
-          const SizedBox(
-            width: 15,
-          ),
+          const SizedBox(width: 15),
           FloatingActionButton(
             heroTag: UniqueKey(),
-            onPressed: () => setState(() => _counter--),
+            onPressed: () => Get.find<CountController>().decrement(),
             backgroundColor: Colors.deepOrange,
             child: const Icon(Icons.remove),
           ),
         ],
       ),
     );
+  }
+}
+
+class CountController extends GetxController {
+  int count = 0;
+
+  void increment() {
+    count++;
+    update();
+  }
+
+  void decrement() {
+    count--;
+    update();
   }
 }

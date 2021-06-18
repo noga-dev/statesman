@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:statesman/src/provider.dart' as provider show MyApp;
 import 'package:widget_with_codeview/widget_with_codeview.dart';
 
+import 'src/async_redux.dart' as async_redux show MyApp;
+import 'src/bloc.dart' as bloc show MyApp;
+import 'src/get.dart' as gett show MyApp;
 // import 'src/hooks/hook_custom.dart' as hook_custom
 //     show CustomHookFunctionExample;
 // import 'src/hooks/hook_effect_builder.dart' as hook_effect_builder
@@ -13,6 +16,8 @@ import 'src/hooks/state.dart' as hook show MyApp;
 import 'src/inherited_model.dart' as inherited_model show MyApp;
 import 'src/inherited_widget.dart' as inherited_widget show MyApp;
 import 'src/redux.dart' as redux show MyApp;
+import 'src/rxdart.dart' as rxdart show MyApp;
+import 'src/scoped_model.dart' as scoped_model show MyApp;
 import 'src/setstate.dart' as set_state show MyApp;
 
 void main() {
@@ -43,7 +48,8 @@ void main() {
             child: Wrap(
               alignment: WrapAlignment.center,
               runAlignment: WrapAlignment.center,
-              spacing: 15,
+              spacing: 20,
+              runSpacing: 20,
               children: const [
                 StateManager(
                   label: 'setState',
@@ -75,6 +81,31 @@ void main() {
                   src: 'redux.dart',
                   child: redux.MyApp(),
                 ),
+                StateManager(
+                  label: 'Async Redux',
+                  src: 'async_redux.dart',
+                  child: async_redux.MyApp(),
+                ),
+                StateManager(
+                  label: 'Bloc',
+                  src: 'bloc.dart',
+                  child: bloc.MyApp(),
+                ),
+                StateManager(
+                  label: 'Rxdart',
+                  src: 'rxdart.dart',
+                  child: rxdart.MyApp(),
+                ),
+                StateManager(
+                  label: 'Scoped Model',
+                  src: 'scoped_model.dart',
+                  child: scoped_model.MyApp(),
+                ),
+                StateManager(
+                  label: 'Get',
+                  src: 'get.dart',
+                  child: gett.MyApp(),
+                ),
               ],
             ),
           ),
@@ -104,11 +135,15 @@ class StateManager extends StatelessWidget {
         label: Text(label),
         backgroundColor:
             Colors.accents[Random().nextInt(Colors.accents.length)],
-        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
             builder: (builder) => WidgetWithCodeView(
-                  sourceFilePath: 'lib/src/$src',
-                  codeLinkPrefix: codeLink,
-                  child: child,
-                ))),
+              sourceFilePath: 'lib/src/$src',
+              codeLinkPrefix: codeLink,
+              labelBackgroundColor: Colors.lightBlue,
+              child: child,
+            ),
+          ),
+        ),
       );
 }

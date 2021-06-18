@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:statesman/common.dart';
 
 // ignore: constant_identifier_names
 enum Actions { Increment, Decrement }
@@ -51,7 +50,8 @@ class FlutterReduxApp extends StatelessWidget {
     return StoreProvider<int>(
       store: store,
       child: Scaffold(
-        appBar: myAppBar('Redux'),
+        appBar:
+            AppBar(automaticallyImplyLeading: true, title: const Text('Redux')),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,9 +67,32 @@ class FlutterReduxApp extends StatelessWidget {
           converter: (store) => (action) => action == Actions.Increment
               ? store.dispatch(Actions.Increment)
               : store.dispatch(Actions.Decrement),
-          builder: (context, callback) => MyFabs(
-            incrementButton: () => callback(Actions.Increment),
-            decrementButton: () => callback(Actions.Decrement),
+          builder: (context, callback) => Wrap(
+            children: [
+              if (ModalRoute.of(context)?.canPop ?? false)
+                const Padding(
+                  padding: EdgeInsets.only(right: 15),
+                  child: FloatingActionButton(
+                    onPressed: null,
+                    child: BackButton(),
+                  ),
+                ),
+              FloatingActionButton(
+                heroTag: UniqueKey(),
+                onPressed: () => callback(Actions.Increment),
+                backgroundColor: Colors.green,
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(
+                width: 15,
+              ),
+              FloatingActionButton(
+                heroTag: UniqueKey(),
+                onPressed: () => callback(Actions.Decrement),
+                backgroundColor: Colors.deepOrange,
+                child: const Icon(Icons.remove),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:statesman/common.dart';
 
 class MyApp extends HookWidget {
   const MyApp();
@@ -12,9 +11,32 @@ class MyApp extends HookWidget {
     return Scaffold(
       appBar: AppBar(automaticallyImplyLeading: true),
       body: Center(child: Text('Counter = ${counter.value}')),
-      floatingActionButton: MyFabs(
-        incrementButton: () => counter.value++,
-        decrementButton: () => counter.value--,
+      floatingActionButton: Wrap(
+        children: [
+          if (ModalRoute.of(context)?.canPop ?? false)
+            const Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: FloatingActionButton(
+                onPressed: null,
+                child: BackButton(),
+              ),
+            ),
+          FloatingActionButton(
+            heroTag: UniqueKey(),
+            onPressed: () => counter.value++,
+            backgroundColor: Colors.green,
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          FloatingActionButton(
+            heroTag: UniqueKey(),
+            onPressed: () => counter.value--,
+            backgroundColor: Colors.deepOrange,
+            child: const Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }

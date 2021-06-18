@@ -5,17 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// This example demonstrates how to create a custom Hook.
 class CustomHookExample extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    // Consume the custom hook. It returns a StreamController that we can use
-    // within this Widget.
-    //
-    // To update the stored value, `add` data to the StreamController. To get
-    // the latest value from the StreamController, listen to the Stream with
-    // the useStream hook.
-    // ignore: close_sinks
     final StreamController<int> countController =
         _useLocalStorageInt('counter');
 
@@ -24,9 +16,6 @@ class CustomHookExample extends HookWidget {
         title: const Text('Custom Hook example'),
       ),
       body: Center(
-        // Use a HookBuilder Widget to listen to the Stream. This ensures a
-        // smaller portion of the Widget tree is rebuilt when the stream emits a
-        // new value
         child: HookBuilder(
           builder: (context) {
             final AsyncSnapshot<int?> count =
