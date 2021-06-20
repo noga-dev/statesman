@@ -29,16 +29,14 @@ class MyHomePageConnector extends StatelessWidget {
   const MyHomePageConnector({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return StoreConnector<int, ViewModel>(
-      vm: () => Factory(this),
-      builder: (BuildContext context, ViewModel vm) => MyHomePage(
-        counter: vm.counter,
-        onIncrement: vm.onIncrement,
-        onDecrement: vm.onDecrement,
-      ),
-    );
-  }
+  Widget build(BuildContext context) => StoreConnector<int, ViewModel>(
+        vm: () => Factory(this),
+        builder: (BuildContext context, ViewModel vm) => MyHomePage(
+          counter: vm.counter,
+          onIncrement: vm.onIncrement,
+          onDecrement: vm.onDecrement,
+        ),
+      );
 }
 
 class Factory extends VmFactory<int, MyHomePageConnector> {
@@ -77,34 +75,32 @@ class MyHomePage extends StatelessWidget {
   final VoidCallback? onDecrement;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('Async Redux = $counter')),
-      floatingActionButton: Wrap(
-        children: [
-          if (ModalRoute.of(context)?.canPop ?? false)
-            const Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: FloatingActionButton(
-                onPressed: null,
-                child: BackButton(),
+  Widget build(BuildContext context) => Scaffold(
+        body: Center(child: Text('Async Redux = $counter')),
+        floatingActionButton: Wrap(
+          children: [
+            if (ModalRoute.of(context)?.canPop ?? false)
+              const Padding(
+                padding: EdgeInsets.only(right: 15),
+                child: FloatingActionButton(
+                  onPressed: null,
+                  child: BackButton(),
+                ),
               ),
+            FloatingActionButton(
+              heroTag: UniqueKey(),
+              onPressed: onIncrement,
+              backgroundColor: Colors.green,
+              child: const Icon(Icons.add),
             ),
-          FloatingActionButton(
-            heroTag: UniqueKey(),
-            onPressed: onIncrement,
-            backgroundColor: Colors.green,
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(width: 15),
-          FloatingActionButton(
-            heroTag: UniqueKey(),
-            onPressed: onDecrement,
-            backgroundColor: Colors.deepOrange,
-            child: const Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
-  }
+            const SizedBox(width: 15),
+            FloatingActionButton(
+              heroTag: UniqueKey(),
+              onPressed: onDecrement,
+              backgroundColor: Colors.deepOrange,
+              child: const Icon(Icons.remove),
+            ),
+          ],
+        ),
+      );
 }

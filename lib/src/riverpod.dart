@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp();
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) => ProviderScope(child: Home());
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    Get.put(CountController());
-    super.initState();
-  }
+final _counterProvider = StateProvider((ref) => 0);
 
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Center(
-          child: GetBuilder<CountController>(
-            builder: (s) => Text('Get = ${s.count.toString()}'),
-          ),
+          child: Consumer(builder: (context, watch, _) {
+            final count = watch(_counterProvider).state;
+            return Text('Riverpod = $count');
+          }),
         ),
         floatingActionButton: Wrap(
           children: [
@@ -34,32 +31,18 @@ class _MyAppState extends State<MyApp> {
               ),
             FloatingActionButton(
               heroTag: UniqueKey(),
-              onPressed: () => Get.find<CountController>().increment(),
+              onPressed: () => context.read(_counterProvider).state++,
               backgroundColor: Colors.green,
               child: const Icon(Icons.add),
             ),
             const SizedBox(width: 15),
             FloatingActionButton(
               heroTag: UniqueKey(),
-              onPressed: () => Get.find<CountController>().decrement(),
+              onPressed: () => context.read(_counterProvider).state--,
               backgroundColor: Colors.deepOrange,
               child: const Icon(Icons.remove),
             ),
           ],
         ),
       );
-}
-
-class CountController extends GetxController {
-  int count = 0;
-
-  void increment() {
-    count++;
-    update();
-  }
-
-  void decrement() {
-    count--;
-    update();
-  }
 }

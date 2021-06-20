@@ -46,56 +46,52 @@ class FlutterReduxApp extends StatelessWidget {
   final Store<int> store;
 
   @override
-  Widget build(BuildContext context) {
-    return StoreProvider<int>(
-      store: store,
-      child: Scaffold(
-        appBar:
-            AppBar(automaticallyImplyLeading: true, title: const Text('Redux')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              StoreConnector<int, String>(
-                converter: (store) => store.state.toString(),
-                builder: (context, count) => Text('Count = $count'),
-              )
-            ],
+  Widget build(BuildContext context) => StoreProvider<int>(
+        store: store,
+        child: Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                StoreConnector<int, String>(
+                  converter: (store) => store.state.toString(),
+                  builder: (context, count) => Text('Redux = $count'),
+                )
+              ],
+            ),
           ),
-        ),
-        floatingActionButton: StoreConnector<int, Function(Actions action)>(
-          converter: (store) => (action) => action == Actions.Increment
-              ? store.dispatch(Actions.Increment)
-              : store.dispatch(Actions.Decrement),
-          builder: (context, callback) => Wrap(
-            children: [
-              if (ModalRoute.of(context)?.canPop ?? false)
-                const Padding(
-                  padding: EdgeInsets.only(right: 15),
-                  child: FloatingActionButton(
-                    onPressed: null,
-                    child: BackButton(),
+          floatingActionButton: StoreConnector<int, Function(Actions action)>(
+            converter: (store) => (action) => action == Actions.Increment
+                ? store.dispatch(Actions.Increment)
+                : store.dispatch(Actions.Decrement),
+            builder: (context, callback) => Wrap(
+              children: [
+                if (ModalRoute.of(context)?.canPop ?? false)
+                  const Padding(
+                    padding: EdgeInsets.only(right: 15),
+                    child: FloatingActionButton(
+                      onPressed: null,
+                      child: BackButton(),
+                    ),
                   ),
+                FloatingActionButton(
+                  heroTag: UniqueKey(),
+                  onPressed: () => callback(Actions.Increment),
+                  backgroundColor: Colors.green,
+                  child: const Icon(Icons.add),
                 ),
-              FloatingActionButton(
-                heroTag: UniqueKey(),
-                onPressed: () => callback(Actions.Increment),
-                backgroundColor: Colors.green,
-                child: const Icon(Icons.add),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              FloatingActionButton(
-                heroTag: UniqueKey(),
-                onPressed: () => callback(Actions.Decrement),
-                backgroundColor: Colors.deepOrange,
-                child: const Icon(Icons.remove),
-              ),
-            ],
+                const SizedBox(
+                  width: 15,
+                ),
+                FloatingActionButton(
+                  heroTag: UniqueKey(),
+                  onPressed: () => callback(Actions.Decrement),
+                  backgroundColor: Colors.deepOrange,
+                  child: const Icon(Icons.remove),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

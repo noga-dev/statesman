@@ -9,8 +9,7 @@ class MyApp extends HookWidget {
     final counter = useState(0);
 
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: true),
-      body: Center(child: Text('Counter = ${counter.value}')),
+      body: Center(child: Text('Hook useState = ${counter.value}')),
       floatingActionButton: Wrap(
         children: [
           if (ModalRoute.of(context)?.canPop ?? false)

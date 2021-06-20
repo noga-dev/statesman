@@ -7,14 +7,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ScopedModel<Counter>(
         model: Counter(),
-        child: HomePage(),
+        child: const HomePage(),
       );
 }
 
 class HomePage extends StatefulWidget {
-  HomePage() {
-    WidgetsFlutterBinding.ensureInitialized();
-  }
+  const HomePage();
+
   @override
   _HomePageState createState() => _HomePageState();
 }

@@ -13,8 +13,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    WidgetsFlutterBinding.ensureInitialized();
-
     counterBloc = CounterBloc();
     super.initState();
   }
