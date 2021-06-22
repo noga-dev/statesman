@@ -226,6 +226,7 @@ class StateManager extends StatefulWidget {
 class _StateManagerState extends State<StateManager> {
   Future<Response>? repoRequest;
   Future<Response>? contRequest;
+  Future<Response>? commRequest;
   late String repFullUrl;
 
   @override
@@ -233,6 +234,8 @@ class _StateManagerState extends State<StateManager> {
     super.initState();
     if (widget.repoUrl.isNotEmpty) {
       repoRequest = _dio.get('https://api.github.com/repos/${widget.repoUrl}');
+      commRequest = _dio.get(
+          'https://api.github.com/repos/${widget.repoUrl}/commits?per_page=1');
       contRequest = _dio
           .get('https://api.github.com/repos/${widget.repoUrl}/contributors');
       repFullUrl = 'https://github.com/${widget.repoUrl}';
@@ -246,6 +249,7 @@ class _StateManagerState extends State<StateManager> {
         future: Future.wait(<Future>[
           repoRequest as Future<dynamic>,
           contRequest as Future<dynamic>,
+          commRequest as Future<dynamic>,
         ]),
         builder: (context, snapshot) {
           Map<String, dynamic> repo;
@@ -256,6 +260,12 @@ class _StateManagerState extends State<StateManager> {
                 ((snapshot.data as List)[1] as Response)
                     .data[0]['contributions']
                     .toString();
+
+            repo['commits'] = RegExp(r'(\d+)')
+                .allMatches(((snapshot.data as List)[2] as Response)
+                    .headers['link']![0])
+                .last
+                .group(0)!;
           } else {
             repo = {
               'forks_count': '?',
@@ -265,6 +275,7 @@ class _StateManagerState extends State<StateManager> {
               'created_at': DateTime.now().toString(),
               'updated_at': DateTime.now().toString(),
               'contributions': '?',
+              'commits': '?',
             };
           }
           return Card(
@@ -307,7 +318,7 @@ class _StateManagerState extends State<StateManager> {
                             Container(
                               alignment: Alignment.center,
                               height: MediaQuery.of(context).size.height * .2,
-                              padding: EdgeInsets.symmetric(vertical: 12),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
                               width: 200,
                               child: widget.imgUrl.contains('.svg')
                                   ? SvgPicture.network(widget.imgUrl)
@@ -358,6 +369,13 @@ class _StateManagerState extends State<StateManager> {
                             child: ListTile(
                               leading: const Icon(LineIcons.users),
                               title: Text(repo['contributions']),
+                            ),
+                          ),
+                          Tooltip(
+                            message: 'Total Commits',
+                            child: ListTile(
+                              leading: const Icon(LineIcons.trafficLight),
+                              title: Text(repo['commits']),
                             ),
                           ),
                           Tooltip(
