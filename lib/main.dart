@@ -211,6 +211,7 @@ class StateManager extends StatefulWidget {
 }
 
 class _StateManagerState extends State<StateManager> {
+  // TODO Pull data from pubdev
   Future<Response>? repoRequest;
   Future<Response>? contRequest;
   Future<Response>? commRequest;
@@ -220,6 +221,7 @@ class _StateManagerState extends State<StateManager> {
   void initState() {
     super.initState();
     if (widget.repoUrl.isNotEmpty) {
+      // GraphQL doesn't seem to offer a better alternative of cascading these requests. Daily limit is 1k IIRC.
       repoRequest = _dio.get(
         'https://api.github.com/repos/${widget.repoUrl}',
       );
