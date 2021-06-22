@@ -1,0 +1,13 @@
+# These are supported funding model platforms
+
+github: agondev
+ko_fi: nogadev
+liberapay: nogadev
+issuehunt: agondev
+open_collective: nogadev
+custom: ["paypal.me/Agonnoga", "https://etherscan.io/address/0x3A060E0F6263e3303EA90e90cCee275a7aeBe063", "https://bscscan.com/address/0x3A060E0F6263e3303EA90e90cCee275a7aeBe063"]
+
+patreon: # Replace with a single Patreon username
+tidelift: # Replace with a single Tidelift platform-name/package-name e.g., npm/babel
+community_bridge: # Replace with a single Community Bridge project-name e.g., cloud-foundry
+otechie: # Replace with a single Otechie username
