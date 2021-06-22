@@ -8,7 +8,6 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:path_provider/path_provider.dart' as pp;
@@ -67,8 +66,7 @@ void main() async {
               StateManager(
                 label: 'Async Redux',
                 src: 'async_redux.dart',
-                imgUrl:
-                    'https://miro.medium.com/max/4000/1*UB8CDSyHmZtcaXBAfb0liA.jpeg',
+                imgPath: 'async_redux',
                 repoUrl: 'marcglasberg/async_redux',
                 child: async_redux.MyApp(),
               ),
@@ -76,53 +74,49 @@ void main() async {
                 label: 'Binder',
                 src: 'binder.dart',
                 repoUrl: 'letsar/binder',
-                imgUrl:
-                    'https://raw.githubusercontent.com/letsar/binder/main/images/logo.svg',
+                imgPath: 'binder',
                 child: binder.MyApp(),
               ),
               StateManager(
                 label: 'Bloc',
                 src: 'bloc.dart',
                 repoUrl: 'felangel/bloc',
-                imgUrl:
-                    'https://raw.githubusercontent.com/felangel/bloc/master/docs/assets/flutter_bloc_logo_full.png',
+                imgPath: 'bloc',
                 child: bloc.MyApp(),
               ),
               StateManager(
                 label: 'Get*2',
                 src: 'get.dart',
                 repoUrl: 'jonataslaw/getx',
-                imgUrl:
-                    'https://raw.githubusercontent.com/jonataslaw/getx-community/master/get.png',
+                imgPath: 'get',
                 child: gett.MyApp(),
               ),
               StateManager(
                 label: 'GetIt*2*3',
                 src: 'get_it.dart',
                 repoUrl: 'fluttercommunity/get_it',
-                imgUrl: 'https://i.ytimg.com/vi/DbV5RV2HRUk/maxresdefault.jpg',
+                imgPath: 'get_it',
                 child: get_it.MyApp(),
               ),
               StateManager(
                 label: 'Hooks useState',
                 src: 'hooks/state.dart',
                 repoUrl: 'rrousselGit/flutter_hooks',
-                imgUrl: 'https://daveceddia.com/images/useState-hook@2x.png',
+                imgPath: 'hook_use_state',
                 child: hook.MyApp(),
               ),
               StateManager(
                 label: 'Inherited Model',
                 src: 'inherited_model.dart',
                 repoUrl: 'flutter-institute/inherited-model',
-                imgUrl: 'https://i.ytimg.com/vi/ml5uefGgkaA/maxresdefault.jpg',
+                imgPath: 'inherited_model',
                 child: inherited_model.MyApp(),
               ),
               StateManager(
                 label: 'Inherited Widget',
                 src: 'inherited_widget.dart',
                 repoUrl: 'flutter-institute/inherited-model',
-                imgUrl:
-                    'https://miro.medium.com/max/3600/1*llAHicU3APfJLknYtT015A.png',
+                imgPath: 'inherited_widget',
                 child: inherited_widget.MyApp(),
               ),
               StateManager(
@@ -130,63 +124,56 @@ void main() async {
                 src: 'mobx.dart',
                 repoUrl: 'mobxjs/mobx.dart',
                 note: '*Requires files generation',
-                imgUrl:
-                    'https://github.com/mobxjs/mobx.dart/raw/master/docs/src/images/mobx.png',
+                imgPath: 'mobx',
                 child: mobx.MyApp(),
               ),
               StateManager(
                 label: 'Provider',
                 src: 'provider.dart',
                 repoUrl: 'rrousselGit/provider',
-                imgUrl:
-                    'https://blog-2021.s3.amazonaws.com/uploads/post/picture/2/thumb_1_-2XwusduiJmkTPVAsAAROw.png',
+                imgPath: 'provider',
                 child: provider.MyApp(),
               ),
               StateManager(
                 label: 'Redux',
                 src: 'redux.dart',
                 repoUrl: 'brianegan/flutter_redux',
-                imgUrl:
-                    'https://miro.medium.com/max/2672/1*3F16RDrdkNFJIdaBWR91sA.png',
+                imgPath: 'redux',
                 child: redux.MyApp(),
               ),
               StateManager(
                 label: 'Riverpod',
                 src: 'riverpod.dart',
                 repoUrl: 'rrousselGit/river_pod',
-                imgUrl: 'https://riverpod.dev/img/cover.png',
+                imgPath: 'riverpod',
                 child: riverpod.MyApp(),
               ),
               StateManager(
                 label: 'Riverpod+Hook',
                 src: 'hooks/riverpod_hook.dart',
                 repoUrl: 'rrousselGit/flutter_hooks',
-                imgUrl:
-                    'https://miro.medium.com/max/1200/0*dngzQ4Ymp0vFr0sQ.png',
+                imgPath: 'riverpod_hook',
                 child: riverpod_hook.MyApp(),
               ),
               StateManager(
                 label: 'Rxdart',
                 src: 'rxdart.dart',
                 repoUrl: 'ReactiveX/rxdart',
-                imgUrl:
-                    'https://learnpainless.com/static/d6a8d3e5aa6f02f8b1905f0559b3c17d/cafad/why-use-rxdart-use-with-bloc-pattern-flutter.png',
+                imgPath: 'rxdart',
                 child: rxdart.MyApp(),
               ),
               StateManager(
                 label: 'Scoped Model',
                 src: 'scoped_model.dart',
                 repoUrl: 'brianegan/scoped_model',
-                imgUrl:
-                    'https://www.didierboelens.com/images/blog/models_scopedmodel_animation.gif',
+                imgPath: 'scoped_model',
                 child: scoped_model.MyApp(),
               ),
               StateManager(
                 label: 'setState',
                 src: 'setstate.dart',
                 repoUrl: 'flutter/flutter',
-                imgUrl:
-                    'https://miro.medium.com/max/837/1*eI__ku9-W7sGlem71miRhA.png',
+                imgPath: 'set_state',
                 child: set_state.MyApp(),
               ),
             ],
@@ -203,7 +190,7 @@ class StateManager extends StatefulWidget {
     required this.label,
     required this.child,
     required this.src,
-    this.imgUrl = '',
+    this.imgPath = '',
     this.codeLink = '',
     this.repoUrl = '',
     this.desc = '',
@@ -214,7 +201,7 @@ class StateManager extends StatefulWidget {
   final String label;
   final String src;
   final String codeLink;
-  final String imgUrl;
+  final String imgPath;
   final String repoUrl;
   final String desc;
   final String note;
@@ -320,9 +307,8 @@ class _StateManagerState extends State<StateManager> {
                               height: MediaQuery.of(context).size.height * .2,
                               padding: const EdgeInsets.symmetric(vertical: 12),
                               width: 200,
-                              child: widget.imgUrl.contains('.svg')
-                                  ? SvgPicture.network(widget.imgUrl)
-                                  : Image.network(widget.imgUrl),
+                              child: Image.asset(
+                                  'assets/img/${widget.imgPath}.jpg'),
                             ),
                             Text(
                               widget.note,
