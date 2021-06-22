@@ -210,6 +210,8 @@ class StateManager extends StatefulWidget {
   _StateManagerState createState() => _StateManagerState();
 }
 
+// TODO widget is being destroyed when user afk resulting in repeating the futures calls
+// TODO Data is not being retrieved from cache. Why?
 class _StateManagerState extends State<StateManager> {
   // TODO Pull data from pubdev
   Future<Response>? repoRequest;
