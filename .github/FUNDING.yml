@@ -1,8 +1,8 @@
 # These are supported funding model platforms
 
-github: agondev
-ko_fi: nogadev
-custom: ["paypal.me/Agonnoga", "https://etherscan.io/address/0x3A060E0F6263e3303EA90e90cCee275a7aeBe063", "https://bscscan.com/address/0x3A060E0F6263e3303EA90e90cCee275a7aeBe063"]
+github: #agondev
+ko_fi: #nogadev
+custom: #["paypal.me/Agonnoga", "https://etherscan.io/address/0x3A060E0F6263e3303EA90e90cCee275a7aeBe063", "https://bscscan.com/address/0x3A060E0F6263e3303EA90e90cCee275a7aeBe063"]
 #liberapay: nogadev
 #issuehunt: agondev
 #open_collective: nogadev
