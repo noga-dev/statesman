@@ -12,7 +12,7 @@ A comparison app to display different states management solutions and their MVP 
 *2 TODO: Keeps state after going back home, fix this
 *3 Has error needs fix
 
-![](https://github.com/Agondev/statesman/blob/master/github/ss1.png)
-![](https://github.com/Agondev/statesman/blob/master/github/ss2.png)
-![](https://github.com/Agondev/statesman/blob/master/github/ss3.png)
-![](https://github.com/Agondev/statesman/blob/master/github/ss4.png)
+![](https://github.com/Agondev/statesman/blob/master/.github/ss1.png)
+![](https://github.com/Agondev/statesman/blob/master/.github/ss2.png)
+![](https://github.com/Agondev/statesman/blob/master/.github/ss3.png)
+![](https://github.com/Agondev/statesman/blob/master/.github/ss4.png)
