@@ -220,11 +220,15 @@ class _StateManagerState extends State<StateManager> {
   void initState() {
     super.initState();
     if (widget.repoUrl.isNotEmpty) {
-      repoRequest = _dio.get('https://api.github.com/repos/${widget.repoUrl}');
+      repoRequest = _dio.get(
+        'https://api.github.com/repos/${widget.repoUrl}',
+      );
       commRequest = _dio.get(
-          'https://api.github.com/repos/${widget.repoUrl}/commits?per_page=1');
-      contRequest = _dio
-          .get('https://api.github.com/repos/${widget.repoUrl}/contributors');
+        'https://api.github.com/repos/${widget.repoUrl}/commits?per_page=1',
+      );
+      contRequest = _dio.get(
+        'https://api.github.com/repos/${widget.repoUrl}/contributors',
+      );
       repFullUrl = 'https://github.com/${widget.repoUrl}';
     } else {
       repFullUrl = 'https://github.com/Agondev';
@@ -250,7 +254,7 @@ class _StateManagerState extends State<StateManager> {
 
             repo['commits'] = RegExp(r'(\d+)')
                 .allMatches(((snapshot.data as List)[2] as Response)
-                    .headers['link']![0])
+                    .headers['link']![1])
                 .last
                 .group(0)!;
           } else {
@@ -360,7 +364,7 @@ class _StateManagerState extends State<StateManager> {
                           Tooltip(
                             message: 'Total Commits',
                             child: ListTile(
-                              leading: const Icon(LineIcons.trafficLight),
+                              leading: const Icon(LineIcons.history),
                               title: Text(repo['commits']),
                             ),
                           ),
@@ -368,16 +372,26 @@ class _StateManagerState extends State<StateManager> {
                             message: 'Creation Date',
                             child: ListTile(
                               leading: const Icon(LineIcons.calendar),
-                              title: Text(DateFormat.yMMMd()
-                                  .format(DateTime.parse(repo['created_at']))),
+                              title: Text(
+                                DateFormat.yMMMd().format(
+                                  DateTime.parse(
+                                    repo['created_at'],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                           Tooltip(
                             message: 'Last Update',
                             child: ListTile(
                               leading: const Icon(LineIcons.edit),
-                              title: Text(DateFormat.yMMMd()
-                                  .format(DateTime.parse(repo['updated_at']))),
+                              title: Text(
+                                DateFormat.yMMMd().format(
+                                  DateTime.parse(
+                                    repo['updated_at'],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ],

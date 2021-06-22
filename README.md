@@ -4,7 +4,7 @@ StatesMan - States Management
 
 ## Getting Started
 
-A comparison app to display different states management solutions and their MVP for counter app with addition + subtract buttons
+A comparison app to display different state management solutions and their MVP for the counter app with + and - buttons.
 
 ### Notes
 
