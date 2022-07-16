@@ -22,10 +22,7 @@ class UseReducerExample extends HookWidget {
   Widget build(BuildContext context) {
     // Create the reducer function that will handle the actions you dispatch
     State _reducer(State state, IncrementCounter action) {
-      if (action is IncrementCounter) {
-        return State(counter: state.counter + action.counter);
-      }
-      return state;
+      return State(counter: state.counter + action.counter);
     }
 
     final _store = useReducer<State, IncrementCounter>(
