@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final counterProvider = StateNotifierProvider<Counter, int>((_) => Counter());
@@ -19,12 +18,12 @@ class MyApp extends StatelessWidget {
       const ProviderScope(child: MyHomePage());
 }
 
-class MyHomePage extends HookWidget {
+class MyHomePage extends HookConsumerWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final count = useProvider(counterProvider);
+  Widget build(BuildContext context, ref) {
+    final count = ref.watch(counterProvider);
 
     return Scaffold(
       body: Center(child: Text('Riverpod+useProvider = $count')),
@@ -40,14 +39,14 @@ class MyHomePage extends HookWidget {
             ),
           FloatingActionButton(
             heroTag: UniqueKey(),
-            onPressed: () => context.read(counterProvider.notifier).increment(),
+            onPressed: () => ref.read(counterProvider.notifier).increment(),
             backgroundColor: Colors.green,
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 15),
           FloatingActionButton(
             heroTag: UniqueKey(),
-            onPressed: () => context.read(counterProvider.notifier).decrement(),
+            onPressed: () => ref.read(counterProvider.notifier).decrement(),
             backgroundColor: Colors.deepOrange,
             child: const Icon(Icons.remove),
           ),

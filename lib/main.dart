@@ -6,7 +6,6 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
@@ -17,7 +16,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:widget_with_codeview/widget_with_codeview.dart';
 
 import 'src/async_redux.dart' as async_redux show MyApp;
-import 'src/binder.dart' as binder show MyApp;
+// import 'src/binder.dart' as binder show MyApp;
 import 'src/bloc.dart' as bloc show MyApp;
 import 'src/get.dart' as gett show MyApp;
 import 'src/get_it.dart' as get_it show MyApp;
@@ -43,15 +42,15 @@ void main() async {
 
   setPathUrlStrategy();
 
-  _dio.interceptors.add(
-    DioCacheInterceptor(
-      options: CacheOptions(
-        store: HiveCacheStore(kIsWeb ? null : Directory.current.path),
-        maxStale: const Duration(minutes: 30),
-        policy: CachePolicy.forceCache,
-      ),
-    ),
-  );
+  // _dio.interceptors.add(
+  //   DioCacheInterceptor(
+  // options: CacheOptions(
+  //   store: HiveCacheStore(kIsWeb ? null : Directory.current.path),
+  //   maxStale: const Duration(minutes: 30),
+  //   policy: CachePolicy.forceCache,
+  // ),
+  // ),
+  // );
 
   runApp(
     MaterialApp(
@@ -70,13 +69,13 @@ void main() async {
                 repoUrl: 'marcglasberg/async_redux',
                 child: async_redux.MyApp(),
               ),
-              StateManager(
-                label: 'Binder',
-                src: 'binder.dart',
-                repoUrl: 'letsar/binder',
-                imgPath: 'binder',
-                child: binder.MyApp(),
-              ),
+              // StateManager(
+              //   label: 'Binder',
+              //   src: 'binder.dart',
+              //   repoUrl: 'letsar/binder',
+              //   imgPath: 'binder',
+              //   child: binder.MyApp(),
+              // ),
               StateManager(
                 label: 'Bloc',
                 src: 'bloc.dart',
@@ -256,11 +255,15 @@ class _StateManagerState extends State<StateManager> {
                     .data[0]['contributions']
                     .toString();
 
-            repo['commits'] = RegExp(r'(\d+)')
-                .allMatches(((snapshot.data as List)[2] as Response)
-                    .headers['link']![1])
-                .last
-                .group(0)!;
+            try {
+              repo['commits'] = RegExp(r'(\d+)')
+                  .allMatches(((snapshot.data as List)[2] as Response)
+                      .headers['link']![1])
+                  .last
+                  .group(0)!;
+            } catch (e) {
+              repo['commits'] = 'N/A';
+            }
           } else {
             repo = {
               'forks_count': '?',
@@ -298,9 +301,10 @@ class _StateManagerState extends State<StateManager> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(200),
-                        onTap: () async => await canLaunch(repFullUrl)
-                            ? await launch(repFullUrl)
-                            : null,
+                        onTap: () async {
+                          final url = Uri.parse(repFullUrl);
+                          await canLaunchUrl(url) ? await launchUrl(url) : null;
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,

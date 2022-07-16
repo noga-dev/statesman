@@ -6,8 +6,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Bloc.observer = CounterObserver();
-    return const CounterPage();
+    return BlocOverrides.runZoned(
+      () {
+        return const CounterPage();
+      },
+      blocObserver: CounterObserver(),
+    );
   }
 }
 
